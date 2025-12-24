@@ -61,34 +61,99 @@
         }
 
         .container {
-            max-width: 600px;
+            max-width: 650px;
             width: 100%;
             text-align: center;
             position: relative;
             z-index: 1;
-            background: rgba(20, 20, 20, 0.6);
-            backdrop-filter: blur(10px);
-            padding: 50px 40px;
-            border-radius: 20px;
-            border: 2px solid rgba(220, 38, 38, 0.3);
-            box-shadow: 0 20px 60px rgba(220, 38, 38, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            background: linear-gradient(135deg, rgba(20, 20, 20, 0.7) 0%, rgba(30, 20, 20, 0.6) 100%);
+            backdrop-filter: blur(15px);
+            padding: 60px 50px;
+            border-radius: 25px;
+            border: 2px solid rgba(220, 38, 38, 0.4);
+            box-shadow: 0 30px 80px rgba(220, 38, 38, 0.25), 
+                        inset 0 1px 20px rgba(255, 255, 255, 0.08),
+                        inset 0 -1px 20px rgba(220, 38, 38, 0.1);
+            position: relative;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, rgba(220, 38, 38, 0.3), rgba(220, 38, 38, 0.1));
+            border-radius: 25px;
+            z-index: -1;
+            blur: 20px;
         }
 
         .message {
-            font-size: 28px;
-            line-height: 1.8;
-            margin-bottom: 40px;
-            min-height: 120px;
+            font-size: 36px;
+            line-height: 2;
+            margin-bottom: 50px;
+            min-height: 180px;
             display: flex;
             align-items: center;
             justify-content: center;
-            animation: fadeInScale 0.7s ease-out;
-            background: linear-gradient(135deg, rgba(220, 38, 38, 0.1), rgba(220, 38, 38, 0.05));
-            padding: 30px;
-            border-radius: 12px;
-            border-left: 4px solid var(--color-red-500);
+            animation: messageSlideIn 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+            background: linear-gradient(135deg, rgba(220, 38, 38, 0.2) 0%, rgba(220, 38, 38, 0.05) 100%);
+            padding: 50px 45px;
+            border-radius: 20px;
+            border: none;
             font-weight: 300;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
+            text-shadow: 0 4px 20px rgba(220, 38, 38, 0.4), 0 0 40px rgba(220, 38, 38, 0.2);
+            box-shadow: 0 20px 60px rgba(220, 38, 38, 0.3), 
+                        inset 0 1px 30px rgba(255, 255, 255, 0.1),
+                        0 0 80px rgba(220, 38, 38, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .message::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--color-red-500), var(--color-red-600), transparent);
+            animation: slideTop 1.5s ease-in-out infinite;
+        }
+
+        .message::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(270deg, var(--color-red-500), var(--color-red-600), transparent);
+            animation: slideBottom 1.5s ease-in-out infinite 0.3s;
+        }
+
+        @keyframes messageSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideTop {
+            0%, 100% { width: 0; }
+            50% { width: 100%; }
+        }
+
+        @keyframes slideBottom {
+            0%, 100% { width: 0; }
+            50% { width: 100%; }
         }
 
         @keyframes fadeInScale {
@@ -107,18 +172,19 @@
         }
 
         button {
-            padding: 14px 40px;
-            font-size: 16px;
-            font-weight: 600;
+            padding: 16px 50px;
+            font-size: 17px;
+            font-weight: 700;
             background: linear-gradient(135deg, var(--color-red-500), var(--color-red-600));
             color: var(--color-white);
             border: 2px solid var(--color-red-600);
-            border-radius: 10px;
+            border-radius: 12px;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
             text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 10px 25px rgba(220, 38, 38, 0.3);
+            letter-spacing: 1.5px;
+            box-shadow: 0 15px 40px rgba(220, 38, 38, 0.4),
+                        0 0 20px rgba(220, 38, 38, 0.2);
             position: relative;
             overflow: hidden;
         }
@@ -130,14 +196,23 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.5s;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.6s;
+        }
+
+        button::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.15), transparent);
+            border-radius: 12px;
         }
 
         button:hover {
             background: linear-gradient(135deg, var(--color-red-600), var(--color-red-700));
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(220, 38, 38, 0.5);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 50px rgba(220, 38, 38, 0.6),
+                        0 0 30px rgba(220, 38, 38, 0.3);
         }
 
         button:hover::before {
@@ -146,7 +221,7 @@
 
         button:active {
             background: var(--color-red-700);
-            transform: translateY(-1px);
+            transform: translateY(-2px);
         }
 
         button:disabled {
@@ -159,10 +234,34 @@
         .hidden {
             display: none;
         }
+
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
     </style>
 </head>
 <body>
     <div class="container">
+        <div class="stars"></div>
         <div class="message" id="message">Добро пожаловать в историю...</div>
         <div class="button-container">
             <button id="nextBtn">Далее</button>
@@ -237,6 +336,21 @@
                 nextBtn.style.display = 'block';
             }
         });
+
+        // Создание падающих звёзд
+        function createStars() {
+            const starsContainer = document.querySelector('.stars');
+            for (let i = 0; i < 15; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+
+        createStars();
 
         // Инициализация
         displayMessage(0);
